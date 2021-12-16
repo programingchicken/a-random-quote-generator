@@ -51,19 +51,24 @@ const quotes = [
 //Random RGB generater
 function randomColor()
 {
-     color='rgb('+Math. round(Math. random()*255)+','+Math. round(Math. random()*255)+','+Math. round(Math. random()*255)+')';
+    const color ='rgb('+Math. round(Math. random()*255)+','+Math. round(Math. random()*255)+','+Math. round(Math. random()*255)+')';
 
      return color;
 }
 
   /***
- * `getRandomQuote` function
+ * `getRandomNumber` function
 ***/
-function getRandomQuote(numberOfQuotes) {
-  const randomQuote = Math.floor(Math.random() * numberOfQuotes);
-  return randomQuote; 
+function getRandomNumber(numberOfQuotes) {
+  const randomNumber = Math.floor(Math.random() * numberOfQuotes);
+  return randomNumber; 
   }
 
+  function getRandomQuote() {
+    const quote = quotes[getRandomNumber(quotes.length)]
+    console.log(quote)
+    return quote;
+  }
 
 /***
  * `printQuote` function
@@ -71,8 +76,8 @@ function getRandomQuote(numberOfQuotes) {
 function printQuote() {
   
   //defines base var
-  const quotesLength = quotes.length;
-  const number = getRandomQuote(parseInt(quotesLength));
+  const number = quotes.length;
+  const quote = getRandomQuote()
   var quoteBox = document.getElementById("quote-box");
   var htmlNames = document.createElement('p');
   var htmlQuote = document.createElement('p');
@@ -84,9 +89,9 @@ function printQuote() {
   quoteBox.replaceChild(htmlQuote, quoteP);
   
   //adds same class names as nameP/quoteP to htmlName/htmlQuote and adding new innerHTML to htmlName/htmlQuote
-  htmlNames.innerHTML = quotes[number].name;
+  htmlNames.innerHTML = quote.name;
   htmlNames.className = 'source';
-  htmlQuote.innerHTML = quotes[number].quote;
+  htmlQuote.innerHTML = quote.quote;
   htmlQuote.className = 'quote';
 
   //making them removable
@@ -102,7 +107,7 @@ function printQuote() {
 //appends citation
   if (number === 0 || number === 4 ) {
   var citationSpan = document.createElement('span');
-  citationSpan.innerHTML = quotes[number].citation;
+  citationSpan.innerHTML = quote.citation;
   citationSpan.className = 'citation';
   htmlNames.appendChild(citationSpan);
   }
@@ -115,12 +120,12 @@ function printQuote() {
 //appends year
   if (number === 1 || number === 5) {
     var yearSpan = document.createElement('span');
-    yearSpan.innerHTML = quotes[number].year;
+    yearSpan.innerHTML = quote.year;
     yearSpan.className = 'year';
     htmlNames.appendChild(yearSpan);
   }
 
-  //removes appended old span with the class of tags
+//removes appended old span with the class of tags
   if (typeof(oldTagSpan) != 'undefined' && oldTagSpan != null) {
     htmlNames.removeChild(oldTagSpan);
     } 
@@ -128,15 +133,16 @@ function printQuote() {
 //append span with class tags
   if (number === 2) {
     var tagSpan = document.createElement('span');
-    tagSpan.innerHTML = quotes[number].tags;
+    tagSpan.innerHTML = quote.tags;
     tagSpan.className = 'tags';
     htmlNames.appendChild(tagSpan);
     }
 
   //chages backgrouond color
 const rColor = randomColor();
+console.log(rColor)
   var body = document.querySelector('body');
-  body.style.backgroundColor = rColor;
+  body.style.backgroundColor = `${rColor}`;
 }
 
 
